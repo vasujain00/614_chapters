@@ -1,0 +1,10 @@
+# Dogwood rule grammar (informal)
+rule     := ("deny" | "permit") "if" expr
+expr     := term (("and" | "or") term)*
+term     := formerly(expr)
+          | count_within(action, duration) cmp number
+          | count_distinct_within(action, field, duration) cmp number
+          | sum_within(field, action, duration) cmp number
+          | bind(name, expr)          # names a value for a later comparison
+          | attribute cmp literal     # ordinary Cedar comparison
+duration := number ("s" | "m" | "h" | "d")

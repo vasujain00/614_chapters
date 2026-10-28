@@ -1,0 +1,20 @@
+# otel-collector.yaml -- keep every anomalous trace, sample the rest at 5%
+processors:
+  tail_sampling:
+    decision_wait: 30s
+    policies:
+      - name: errors
+        type: status_code
+        status_code: {status_codes: [ERROR]}
+      - name: slow
+        type: latency
+        latency: {threshold_ms: 5000}
+      - name: low-confidence
+        type: numeric_attribute
+        numeric_attribute: {key: acme.agent.confidence, min_value: 0, max_value: 60}
+      - name: flagged
+        type: string_attribute
+        string_attribute: {key: acme.agent.status, values: [flagged, blocked]}
+      - name: baseline
+        type: probabilistic
+        probabilistic: {sampling_percentage: 5}

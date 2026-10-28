@@ -1,0 +1,8 @@
+# Dogwood: formerly() for sequence detection at response time
+policy exfil_sequence_check {
+    # Response-time: check AFTER execution
+    deny if formerly(
+        count_within(external_http, 30m) > 5
+    ) and response.contains_pii
+}
+# Full implementation: github.com/mastering-agentic-security/ch4

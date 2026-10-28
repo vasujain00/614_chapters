@@ -1,0 +1,7 @@
+policy sell_requires_prior_approval {
+    deny if action == SellShares
+        and not formerly(ApproveSale.order_id == request.order_id
+                         and count_within(ApproveSale, 24h) >= 1)
+}
+# Evaluation record (one per SellShares request): {policy, request.order_id, verdict,
+#   matched ApproveSale trace_id and timestamp, evaluating gateway identity, envelope hash}

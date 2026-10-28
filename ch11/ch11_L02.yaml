@@ -1,0 +1,11 @@
+# thresholds.yaml -- similarity above which an output is flagged, by (role, purpose)
+default:                      0.65   # anonymous user, no purpose code
+roles:
+  verified_security_researcher: 0.85
+  internal_engineer:            0.80
+purposes:
+  SECURITY_AUDIT:               0.88   # expected to discuss exploits
+  INCIDENT_RESPONSE:            0.85
+  CUSTOMER_SUPPORT:             0.60   # tighter than default
+rule: threshold = max(default, roles[role], purposes[purpose]) unless high_stakes, then 0.90
+review:  recalibrate when weekly false-positive rate on any (role, purpose) cell exceeds 2%

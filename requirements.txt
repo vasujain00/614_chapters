@@ -1,0 +1,29 @@
+# Companion code for Mastering Agentic AI Security.
+# Python 3.11+. Lower bounds are the versions the listings were written and run
+# against (mid-2026); the book's chapters name the API they target where a
+# library moved (PyRIT's attack-executor API, LangGraph's interrupt()).
+# Re-pin to exact versions before putting anything here into CI.
+
+# Core (self-contained listings and the test suite)
+numpy>=1.26
+pytest>=8.0
+
+# Chapter 6 / 8: guardrail wiring and durable human-in-the-loop
+langgraph>=0.2
+langgraph-checkpoint-postgres>=1.0
+boto3>=1.34                  # Bedrock ApplyGuardrail (ch06_L04)
+guardrails-ai>=0.5           # Guardrails AI Guard (ch06_L05); validators are installed from the Hub
+
+# Chapter 9: OpenTelemetry GenAI semantic conventions
+opentelemetry-api>=1.25
+opentelemetry-sdk>=1.25
+
+# Chapter 10: automated red teaming
+pyrit>=0.9                   # Microsoft PyRIT, attack-executor API (ch10_L01)
+garak>=0.13.0                # NVIDIA garak CLI (ch10_L02)
+
+# Chapter 11: claim extraction and source grounding
+sentence-transformers>=3.0   # bi-encoder + cross-encoder (ch11_L04); downloads models on first use
+
+# Chapter 14
+pydantic>=2.5

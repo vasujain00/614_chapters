@@ -1,0 +1,15 @@
+# Full implementation: github.com/mastering-agentic-security/ch5
+# Dogwood: a write to long-term memory must follow an approval in the same session
+policy memory_write_requires_approval {
+    deny if action == memory_write
+        and request.partition == "long_term"
+        and not formerly(approve_write.agent_id == principal.id
+                         and count_within(approve_write, 24h) >= 1)
+}
+
+# Dogwood: read-time filter -- exclude entries whose source lost trust
+policy memory_read_requires_trusted_source {
+    deny if action == memory_read
+        and formerly(trust_revoked.source_id == entry.source_id
+                     and count_within(trust_revoked, 30d) >= 1)
+}

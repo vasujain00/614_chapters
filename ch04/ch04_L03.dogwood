@@ -1,0 +1,9 @@
+# Dogwood: rate limiting with burst detection
+policy api_rate_limit {
+    deny if count_within(api_call, 1m) > 60
+}
+
+policy burst_detection {
+    deny if count_within(api_call, 10s) > 20
+}
+# Full implementation: github.com/mastering-agentic-security/ch4

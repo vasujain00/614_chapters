@@ -1,0 +1,7 @@
+# rails/retrieval.co  (Colang 2.0)
+flow retrieval rail block instruction bearing chunks
+  retrieved chunk $chunk
+  $score = await ClassifyInstructionDensity(text=$chunk.text)
+  if $score > 0.8
+    drop chunk $chunk
+    bot say "A retrieved document was excluded because it contained instructions."

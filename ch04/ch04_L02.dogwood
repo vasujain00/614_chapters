@@ -1,0 +1,5 @@
+# Dogwood: budget cap policy
+policy max_transfers {
+    deny if sum_within(amount, transfer, 1h) > 10000
+}
+# Full implementation: github.com/mastering-agentic-security/ch4

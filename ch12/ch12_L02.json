@@ -1,0 +1,5 @@
+{"trace_id": "...", "agent_id": "...", "step": 41882, "timestamp": "2026-03-14T02:41:07Z",
+ "chosen_route": "call:external_reference_api", "rejected_routes": [{"route": "call:internal_kb", "score": 0.71}],
+ "confidence": 0.58, "injection_score": 0.44, "trust_ring": 2,
+ "prompt_hash": "sha256:...", "model_version": "...", "source_doc_hashes": ["sha256:..."],
+ "memory_writes": ["w-88213"], "prev_envelope_hash": "sha256:..."}

@@ -1,0 +1,16 @@
+# Dogwood: cross-customer data access detection
+policy cross_customer_access {
+    deny if count_distinct_within(
+        customer_id,
+        customer_record_read,
+        10m
+    ) > 10
+}
+
+# Bind pattern for complex multi-condition rules
+policy suspicious_sequence {
+    bind(reads, count_within(db_read, 5m))
+    bind(writes, count_within(db_write, 5m))
+    deny if reads > 200 and writes > 10
+}
+# Full implementation: github.com/mastering-agentic-security/ch4
